@@ -17,35 +17,18 @@ Route::get('/', function () {
     return view('index');
 });
 
-
 Auth::routes(['verify' => true]);
-  
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::get('/profile/{user}', 'UserController@index')->name('profile.show');
 
-Route::get('/index', 'IndexController@index')->name('home');
+Route::get('/profile/{user}/edit', 'UserController@edit')->name('profile.edit');
 
-Auth::routes();
+Route::patch('/profile/{user}', 'UserController@update')->name('profile.update');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::patch('/profile/{user}', 'UserController@delete')->name('profile.delete');
 
-// Auth::routes();
+Route::get('/profile', 'UserController@index')->name('profile');
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'UserController@index')->name('home');
 
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/index', 'UserController@index')->name('home');
