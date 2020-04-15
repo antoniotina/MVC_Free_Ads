@@ -14,6 +14,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('profile.edit', compact('user'));
     }
 
@@ -24,14 +25,20 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-
         $user->update($data);
         return view('profile.edit', compact('user'));
     }
 
     public function delete(User $user)
     {
+        $this->authorize('delete', $user);
         $user->delete();
+        auth()->logout();
         return view('index');
+    }
+
+    public function listAnnonces(User $user)
+    {
+        return view('annonce.show', compact('user'));
     }
 }

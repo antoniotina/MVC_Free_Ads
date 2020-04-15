@@ -14,7 +14,21 @@
                         </div>
                     @endif
 
-                    Welcome
+                    Welcome {{ $user->name }}
+
+                    <a class="dropdown-item" href="{{ route('annonce.create') }}">
+                        Create an Ad
+                    </a>
+
+                    <a class="dropdown-item" href="{{ route('profile.listannonces', ['user' => Auth::id()]) }}">
+                        Show my ads
+                    </a>
+
+                    <a class="dropdown-item" href="{{ route('annonce.showall') }}">
+                        Show all ads
+                    </a>
+
+                    
                 </div>
             </div>
         </div>
