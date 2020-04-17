@@ -42,7 +42,7 @@ Route::group([
 
     Route::get('/profile', 'UserController@index')->name('profile');
 
-    Route::get('/profile/{user}/delete', 'UserController@delete')->name('delete');
+    Route::delete('/profile/{user}/delete', 'UserController@delete')->name('delete');
 
     Route::get('/profile/{user}/edit', 'UserController@edit')->name('profile.edit');
 
@@ -56,5 +56,5 @@ Route::group([
 
     Route::put('/annonce/{annonce}/update', 'AnnonceController@update')->name('annonce.update');
 
-    Route::get('/annonce/{annonce}/delete', 'AnnonceController@delete')->name('annonce.delete');
+    Route::delete('/annonce/{annonce}/delete', 'AnnonceController@delete')->name('annonce.delete');
 });

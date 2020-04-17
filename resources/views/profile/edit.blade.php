@@ -50,7 +50,12 @@
             </div>
         </form>
         <div class="col-md-3">
-            <a href="{{ route('delete', ['user' => Auth::id()]) }}">Delete account</a>
+            <form action="{{ route('delete', ['user' => Auth::id()]) }}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button class="btn btn-primary">Delete account</button>
+            </form>
+            {{-- <a href="{{ route('delete', ['user' => Auth::id()]) }}">Delete account</a> --}}
         </div>
     @endif
 </div>

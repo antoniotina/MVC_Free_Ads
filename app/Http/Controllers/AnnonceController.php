@@ -19,7 +19,7 @@ class AnnonceController extends Controller
 
     public function showAll()
     {
-        $annonces = Annonce::all();
+        $annonces = Annonce::all()->reverse();
         return view('annonce.showall', compact('annonces'));
     }
 
@@ -64,5 +64,6 @@ class AnnonceController extends Controller
             $annonce->delete();
             return view('annonce.show', ['user' => auth()->user()]);
         }
+        return view('annonce.show', ['user' => auth()->user()]);
     }
 }

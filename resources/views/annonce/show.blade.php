@@ -12,9 +12,11 @@
                 <a class="dropdown-item" href="{{ route('annonce.edit', $value->id ) }}">
                     Update ad
                 </a>
-                <a class="dropdown-item" href="{{ route('annonce.delete', $value->id ) }}">
-                    Delete ad
-                </a>
+                <form action="{{ route('annonce.delete', $value->id) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-primary">Delete ad</button>
+                </form>
             @endif
         </div>
     @endforeach

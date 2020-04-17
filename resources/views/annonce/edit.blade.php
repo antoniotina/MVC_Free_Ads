@@ -3,6 +3,11 @@
 @section('content')
 <div class="container">
     @if(Auth::check())
+        <div class="flex-center position-ref full-height" id="app">
+            <drop-component>
+
+            </drop-component>
+        </div>
         <form action="{{ route('annonce.update', $annonce) }}" enctype="multipart/form-data" method="POST">
             @csrf
             @method('PUT')
