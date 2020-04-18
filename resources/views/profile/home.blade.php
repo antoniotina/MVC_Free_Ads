@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @if ( $user->id == Auth::id())
+                    @if ($user->id == Auth::id())
                     Welcome {{ $user->name }}
 
                     <a class="dropdown-item" href="{{ route('annonce.create') }}">
