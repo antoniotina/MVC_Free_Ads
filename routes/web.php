@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('index');
 });
@@ -21,13 +10,12 @@ Auth::routes(['verify' => true]);
 
 Route::get('/index', 'IndexController@index')->name('index');
 
-Route::get('/home', 'UserController@index')->name('home');
+Route::get('/home', 'IndexController@index')->name('home');
 
 Route::get('/profile/{user}', 'UserController@index')->name('profile.show');
 
 Route::get('/annonce/all', 'AnnonceController@showAll')->name('annonce.showall');
 
-// NEED TO CREATE A GET ROUTE FOR EACH PUT/PATCH/POST SO THAT ANY NON AUTH USER CAN'T JUST ACCESS IT
 Route::get('/annonce/add', 'AnnonceController@add')->name('annonce.add');
 
 Route::get('/profile/{user}/update', 'UserController@update')->name('profile.update');
@@ -46,6 +34,12 @@ Route::group([
 
     Route::get('/profile/{user}/edit', 'UserController@edit')->name('profile.edit');
 
+    Route::get('/profile/{user}/sendm', 'MessageController@create')->name('message.create');
+
+    Route::put('/message/{user}/send', 'MessageController@add')->name('message.add');
+
+    Route::get('/message/{user}/show', 'MessageController@show')->name('message.show');
+
     Route::put('/profile/{user}/update', 'UserController@update')->name('profile.update');
 
     Route::get('/annonce/create', 'AnnonceController@create')->name('annonce.create');
@@ -57,4 +51,6 @@ Route::group([
     Route::put('/annonce/{annonce}/update', 'AnnonceController@update')->name('annonce.update');
 
     Route::delete('/annonce/{annonce}/delete', 'AnnonceController@delete')->name('annonce.delete');
+    
+    Route::get('/annonce/search', 'AnnonceController@searchAd')->name('annonce.search');
 });

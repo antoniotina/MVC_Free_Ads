@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Message;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index(User $user)
-    {
+    {   
+        $user->messages = Message::where('receiver_id', '=', auth()->user()->id)->get();
+        $user->newMessages = count(Message::where('receiver_id', '=', auth()->user()->id)->where('read', '=', 0)->get());
         return view('profile.home', compact('user'));
     }
 
@@ -39,6 +42,7 @@ class UserController extends Controller
 
     public function listAnnonces(User $user)
     {
-        return view('annonce.show', compact('user'));
+        $annonces = $user->annonces()->latest()->paginate(10);
+        return view('annonce.show', compact('annonces'));
     }
 }

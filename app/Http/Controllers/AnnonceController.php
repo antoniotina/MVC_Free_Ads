@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Annonce;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnnonceController extends Controller
 {
@@ -19,8 +20,21 @@ class AnnonceController extends Controller
 
     public function showAll()
     {
-        $annonces = Annonce::all()->reverse();
+        $annonces = Annonce::latest()->paginate(10);
         return view('annonce.showall', compact('annonces'));
+    }
+
+    public function searchAd()
+    {
+        $searchTerm = request()->validate([
+            'searchTerm' => ''
+        ])['searchTerm'];
+        $annonces = Annonce::where('title', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('description', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('price', 'LIKE', "%{$searchTerm}%")
+            ->latest()
+            ->paginate(10);
+        return view('annonce.showall', ['annonces' => $annonces, 'searchTerm' => $searchTerm]);
     }
 
     public function add()
@@ -46,23 +60,17 @@ class AnnonceController extends Controller
 
     public function update(Annonce $annonce)
     {
-        $data = request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'price' => 'required'
-        ]);
-
+        $data = request()->validate(['title' => 'required', 'description' => 'required', 'price' => 'required']);
         if (auth()->user()->id == $annonce->user_id) {
             $annonce->update($data);
         }
-        return view('annonce.show', ['user' => auth()->user()]);
+        return view('profile.home', ['user' => auth()->user()]);
     }
 
     public function delete(Annonce $annonce)
     {
         if (auth()->user()->annonces()->find($annonce)) {
             $annonce->delete();
-            return view('annonce.show', ['user' => auth()->user()]);
         }
         return view('annonce.show', ['user' => auth()->user()]);
     }

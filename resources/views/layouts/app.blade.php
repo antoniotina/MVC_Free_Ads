@@ -49,6 +49,15 @@
                                 </li>
                             @endif
                         @else
+                            <form action="{{ route('annonce.search') }}" method="GET">
+                                @csrf
+                                <input id="searchTerm" type="text" class="form-control @error('searchTerm') is-invalid @enderror" name="searchTerm" value="" placeholder="Search Ad" autocomplete="searchTerm" autofocus>
+                            </form>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('annonce.showall') }}">
+                                    Show all ads
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name ?? "Profile" }} <span class="caret"></span>
