@@ -72,6 +72,6 @@ class AnnonceController extends Controller
         if (auth()->user()->annonces()->find($annonce)) {
             $annonce->delete();
         }
-        return view('annonce.show', ['user' => auth()->user()]);
+        return view('profile.home', ['user' => auth()->user()]);
     }
 }
